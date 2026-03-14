@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cristiano Ronaldo — CR7 Stats</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #D40000;
+    --red-dark: #8B0000;
+    --red-glow: rgba(212,0,0,0.18);
+    --gold: #C9A84C;
+    --gold-light: #F0D080;
+    --bg: #0A0A0A;
+    --bg2: #111111;
+    --bg3: #181818;
+    --border: rgba(255,255,255,0.07);
+    --text: #F5F5F5;
+    --muted: rgba(255,255,255,0.45);
+    --accent: #C8102E;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 4rem 3rem 3rem;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 50%, rgba(200,16,46,0.22) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(139,0,0,0.15) 0%, transparent 60%),
+      linear-gradient(180deg, #080808 0%, #0F0808 60%, #1A0505 100%);
+    z-index: 0;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+    mask-image: linear-gradient(180deg, transparent 0%, black 40%, black 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 40%, black 70%, transparent 100%);
+  }
+
+  .hero-number {
+    position: absolute;
+    right: -0.05em;
+    top: 50%;
+    transform: translateY(-55%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(18rem, 30vw, 32rem);
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(200,16,46,0.15);
+    user-select: none;
+    z-index: 0;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 700px; }
+
+  .hero-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--red);
+    text-transform: uppercase;
+    border: 1px solid rgba(200,16,46,0.4);
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    line-height: 0.9;
+    letter-spacing: 0.01em;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .hero-name span {
+    display: block;
+    background: linear-gradient(135deg, #fff 30%, rgba(255,255,255,0.5));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-name .accent {
+    background: linear-gradient(135deg, var(--red), #ff6b35);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    margin-top: 1rem;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 5px 14px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .badge.hot {
+    background: rgba(200,16,46,0.12);
+    border-color: rgba(200,16,46,0.35);
+    color: #ff8080;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    right: 3rem;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(180deg, var(--red), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  /* LAYOUT */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  section { padding: 5rem 0; border-top: 1px solid var(--border); }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 0.95;
+    letter-spacing: 0.01em;
+    margin-bottom: 3rem;
+    background: linear-gradient(135deg, #fff 40%, rgba(255,255,255,0.4));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* MEGA STATS */
+  .mega-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 4rem;
+  }
+
+  .mega-stat {
+    background: var(--bg2);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .mega-stat::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--red), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .mega-stat:hover { background: var(--bg3); }
+  .mega-stat:hover::before { opacity: 1; }
+
+  .mega-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 1;
+    color: var(--red);
+    letter-spacing: 0.02em;
+  }
+
+  .mega-num.gold { color: var(--gold); }
+  .mega-num.white { color: #fff; }
+
+  .mega-label {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+
+  /* PROGRESS */
+  .progress-section {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-section::before {
+    content: '1000';
+    position: absolute;
+    right: -0.05em;
+    bottom: -0.2em;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14rem;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(200,16,46,0.08);
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+  }
+
+  .progress-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .progress-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    color: var(--red);
+    line-height: 1;
+  }
+
+  .progress-track {
+    height: 6px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 3px;
+    overflow: visible;
+    position: relative;
+    margin-bottom: 1rem;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--red-dark), var(--red), #ff4d4d);
+    width: 0;
+    transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+  }
+
+  .progress-fill::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--red);
+    box-shadow: 0 0 16px rgba(200,16,46,0.8);
+  }
+
+  .progress-fill.animated { width: 96.5%; }
+
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* CLUBS */
+  .clubs-list { display: flex; flex-direction: column; }
+
+  .clubs-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 120px;
+    gap: 2rem;
+    padding: 0 0 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .clubs-header span {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .clubs-header span:last-child { text-align: right; }
+
+  .club-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 120px;
+    align-items: center;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+    gap: 2rem;
+    transition: all 0.3s;
+    position: relative;
+  }
+
+  .club-item::before {
+    content: '';
+    position: absolute;
+    left: -2.5rem; right: -2.5rem;
+    top: 0; bottom: 0;
+    background: var(--red-glow);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .club-item:hover::before { opacity: 1; }
+
+  .club-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .club-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  .club-apps, .club-ratio {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .club-goals-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    color: var(--red);
+    text-align: right;
+    line-height: 1;
+  }
+
+  .club-bar {
+    height: 2px;
+    background: var(--border);
+    border-radius: 1px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+
+  .club-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--red), rgba(200,16,46,0.3));
+    border-radius: 1px;
+    transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    width: 0;
+  }
+
+  .club-bar-fill.animated { width: var(--w); }
+
+  .club-item.portugal .club-goals-big { color: var(--gold); }
+  .club-item.portugal .club-bar-fill {
+    background: linear-gradient(90deg, var(--gold), rgba(201,168,76,0.3));
+  }
+
+  /* RECORDS */
+  .records-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .record-item {
+    background: var(--bg2);
+    padding: 2rem;
+    transition: background 0.3s;
+  }
+
+  .record-item:hover { background: var(--bg3); }
+
+  .record-icon {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .record-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    color: var(--red);
+    line-height: 1;
+  }
+
+  .record-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-top: 4px;
+  }
+
+  .record-desc {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+    line-height: 1.6;
+  }
+
+  /* TROPHIES */
+  .trophies-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .trophy-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.5rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .trophy-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .trophy-card:hover { border-color: rgba(201,168,76,0.3); background: var(--bg3); }
+  .trophy-card:hover::after { opacity: 1; }
+
+  .trophy-count {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .trophy-name {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  /* TWO COL */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 2rem; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, var(--red) 0%, var(--border) 100%);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 2.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--red);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 10px rgba(200,16,46,0.5);
+  }
+
+  .timeline-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--red);
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+
+  .timeline-text {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .timeline-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+    line-height: 1.5;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 0;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    position: relative;
+    z-index: 1;
+  }
+
+  footer span { color: var(--red); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .mega-stats { grid-template-columns: repeat(2, 1fr); }
+    .trophies-grid { grid-template-columns: repeat(2, 1fr); }
+    .records-grid { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    .clubs-header,
+    .club-item { grid-template-columns: 1fr 80px; }
+    .club-apps, .club-ratio,
+    .clubs-header span:nth-child(2),
+    .clubs-header span:nth-child(3) { display: none; }
+    .hero { padding: 3rem 1.5rem 2rem; }
+    .container { padding: 0 1.5rem; }
+  }
+
+  @media (max-width: 600px) {
+    .mega-stats { grid-template-columns: repeat(2, 1fr); }
+    .trophies-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-number">7</div>
+
+  <div class="hero-content">
+    <div class="hero-tag">CR7 · Career Statistics · Updated 2026</div>
+    <h1 class="hero-name">
+      <span>Cristiano</span>
+      <span class="accent">Ronaldo</span>
+    </h1>
+    <p class="hero-sub">Forward &middot; Al Nassr FC &middot; Portugal National Team &middot; Age 41</p>
+    <div class="hero-badges">
+      <span class="badge hot">5&times; Ballon d'Or</span>
+      <span class="badge hot">5&times; Champions League</span>
+      <span class="badge">226 Caps</span>
+      <span class="badge">Record Goalscorer</span>
+      <span class="badge">GOAT Contender</span>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<div style="background:var(--bg);position:relative;z-index:1;">
+
+<!-- NUMBERS -->
+<section>
+  <div class="container">
+    <div class="section-label reveal">Career Overview</div>
+    <h2 class="section-title reveal">The Numbers</h2>
+
+    <div class="mega-stats reveal">
+      <div class="mega-stat">
+        <div class="mega-num">965</div>
+        <div class="mega-label">Career Goals</div>
+      </div>
+      <div class="mega-stat">
+        <div class="mega-num gold">143</div>
+        <div class="mega-label">International Goals (Record)</div>
+      </div>
+      <div class="mega-stat">
+        <div class="mega-num white">140</div>
+        <div class="mega-label">Champions League Goals</div>
+      </div>
+      <div class="mega-stat">
+        <div class="mega-num">226</div>
+        <div class="mega-label">Portugal Caps</div>
+      </div>
+      <div class="mega-stat">
+        <div class="mega-num white">1300+</div>
+        <div class="mega-label">Career Appearances</div>
+      </div>
+      <div class="mega-stat">
+        <div class="mega-num gold">38</div>
+        <div class="mega-label">Major Trophies</div>
+      </div>
+      <div class="mega-stat">
+        <div class="mega-num">0.98</div>
+        <div class="mega-label">Goals Per 90 Min</div>
+      </div>
+      <div class="mega-stat">
+        <div class="mega-num white">5</div>
+        <div class="mega-label">Ballon d'Or Awards</div>
+      </div>
+    </div>
+
+    <!-- Road to 1000 -->
+    <div class="progress-section reveal">
+      <div class="progress-header">
+        <div>
+          <div class="progress-big">Road to</div>
+          <div class="progress-num">1,000</div>
+          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.08em">Career goals &mdash; 35 to go</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">CURRENT</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--red);line-height:1">965</div>
+        </div>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-labels">
+        <span>0</span>
+        <span>250</span>
+        <span>500</span>
+        <span>750</span>
+        <span>1,000</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLUBS -->
+<section>
+  <div class="container">
+    <div class="section-label reveal">Club by Club</div>
+    <h2 class="section-title reveal">Goals by Club</h2>
+
+    <div class="clubs-list reveal">
+      <div class="clubs-header">
+        <span>Club</span>
+        <span>Apps</span>
+        <span>Ratio</span>
+        <span style="text-align:right">Goals</span>
+      </div>
+
+      <div class="club-item">
+        <div>
+          <div class="club-name">Sporting CP</div>
+          <div class="club-period">2002 &mdash; 2003</div>
+          <div class="club-bar"><div class="club-bar-fill" style="--w:1.5%"></div></div>
+        </div>
+        <div class="club-apps">31</div>
+        <div class="club-ratio">0.16</div>
+        <div class="club-goals-big">5</div>
+      </div>
+
+      <div class="club-item">
+        <div>
+          <div class="club-name">Manchester United</div>
+          <div class="club-period">2003&ndash;2009 &middot; 2021&ndash;2022</div>
+          <div class="club-bar"><div class="club-bar-fill" style="--w:32.2%"></div></div>
+        </div>
+        <div class="club-apps">346</div>
+        <div class="club-ratio">0.42</div>
+        <div class="club-goals-big">145</div>
+      </div>
+
+      <div class="club-item">
+        <div>
+          <div class="club-name">Real Madrid</div>
+          <div class="club-period">2009 &mdash; 2018</div>
+          <div class="club-bar"><div class="club-bar-fill" style="--w:100%"></div></div>
+        </div>
+        <div class="club-apps">438</div>
+        <div class="club-ratio">1.03</div>
+        <div class="club-goals-big">450</div>
+      </div>
+
+      <div class="club-item">
+        <div>
+          <div class="club-name">Juventus</div>
+          <div class="club-period">2018 &mdash; 2021</div>
+          <div class="club-bar"><div class="club-bar-fill" style="--w:22.4%"></div></div>
+        </div>
+        <div class="club-apps">134</div>
+        <div class="club-ratio">0.75</div>
+        <div class="club-goals-big">101</div>
+      </div>
+
+      <div class="club-item">
+        <div>
+          <div class="club-name">Al Nassr</div>
+          <div class="club-period">2023 &mdash; present</div>
+          <div class="club-bar"><div class="club-bar-fill" style="--w:26.9%"></div></div>
+        </div>
+        <div class="club-apps">90</div>
+        <div class="club-ratio">1.34</div>
+        <div class="club-goals-big">121</div>
+      </div>
+
+      <div class="club-item portugal">
+        <div>
+          <div class="club-name">Portugal &#x1F1F5;&#x1F1F9; &nbsp;<span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:.08em">WORLD RECORD</span></div>
+          <div class="club-period">2003 &mdash; present &middot; 226 caps</div>
+          <div class="club-bar"><div class="club-bar-fill" style="--w:31.8%"></div></div>
+        </div>
+        <div class="club-apps">226</div>
+        <div class="club-ratio">0.63</div>
+        <div class="club-goals-big">143</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECORDS -->
+<section>
+  <div class="container">
+    <div class="section-label reveal">All-Time Records</div>
+    <h2 class="section-title reveal">Unbreakable</h2>
+    <div class="records-grid reveal">
+      <div class="record-item">
+        <span class="record-icon">&#x26BD;</span>
+        <div class="record-num">143</div>
+        <div class="record-title">Most International Goals Ever</div>
+        <div class="record-desc">Men's football all-time record. Surpassed Iran's Ali Daei (109 goals) in 2021. An unmatched legacy for Portugal.</div>
+      </div>
+      <div class="record-item">
+        <span class="record-icon">&#x1F3C6;</span>
+        <div class="record-num">140</div>
+        <div class="record-title">Most Champions League Goals</div>
+        <div class="record-desc">No other player has scored more than 100 UCL goals in history. Ronaldo's Champions League record stands completely alone.</div>
+      </div>
+      <div class="record-item">
+        <span class="record-icon">&#x1F1EA;&#x1F1FA;</span>
+        <div class="record-num">14</div>
+        <div class="record-title">Most UEFA Euro Goals</div>
+        <div class="record-desc">Appeared in 6 European Championships (2004&ndash;2024). Also holds the record for most Euro qualifying goals: 40.</div>
+      </div>
+      <div class="record-item">
+        <span class="record-icon">&#x1F4C5;</span>
+        <div class="record-num">24</div>
+        <div class="record-title">Years Scoring Consecutively</div>
+        <div class="record-desc">Scored in every calendar year from 2003 to 2026. Still going strong at 41 &mdash; an unprecedented feat of longevity.</div>
+      </div>
+      <div class="record-item">
+        <span class="record-icon">&#x1F30D;</span>
+        <div class="record-num">17</div>
+        <div class="record-title">Most Goals in a UCL Season</div>
+        <div class="record-desc">Set with Real Madrid in 2013&ndash;14. A single-season Champions League record that has never been matched or approached.</div>
+      </div>
+      <div class="record-item">
+        <span class="record-icon">&#x1F451;</span>
+        <div class="record-num">5</div>
+        <div class="record-title">Ballon d'Or Awards</div>
+        <div class="record-desc">Won in 2008, 2011, 2012, 2013, 2014. The greatest individual trophy in football, claimed five times across three clubs.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TROPHIES + TIMELINE -->
+<section>
+  <div class="container two-col">
+    <div>
+      <div class="section-label reveal">Honours</div>
+      <h2 class="section-title reveal">Trophies</h2>
+      <div class="trophies-grid reveal">
+        <div class="trophy-card"><div class="trophy-count">5&times;</div><div class="trophy-name">Ballon d'Or</div></div>
+        <div class="trophy-card"><div class="trophy-count">5&times;</div><div class="trophy-name">Champions League</div></div>
+        <div class="trophy-card"><div class="trophy-count">3&times;</div><div class="trophy-name">Premier League</div></div>
+        <div class="trophy-card"><div class="trophy-count">2&times;</div><div class="trophy-name">La Liga</div></div>
+        <div class="trophy-card"><div class="trophy-count">2&times;</div><div class="trophy-name">Serie A</div></div>
+        <div class="trophy-card"><div class="trophy-count">2&times;</div><div class="trophy-name">Nations League</div></div>
+        <div class="trophy-card"><div class="trophy-count">1&times;</div><div class="trophy-name">EURO Championship</div></div>
+        <div class="trophy-card"><div class="trophy-count">4&times;</div><div class="trophy-name">Club World Cup</div></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label reveal">Career Timeline</div>
+      <h2 class="section-title reveal">Journey</h2>
+      <div class="timeline reveal">
+        <div class="timeline-item">
+          <div class="timeline-year">2003</div>
+          <div class="timeline-text">Joined Manchester United</div>
+          <div class="timeline-sub">Signed for &pound;12.24M aged 18. Wore the iconic #7 for the first time.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2008</div>
+          <div class="timeline-text">First Ballon d'Or</div>
+          <div class="timeline-sub">42 goals, UCL winner, Premier League winner. A season that announced him to the world.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2009</div>
+          <div class="timeline-text">World record transfer to Real Madrid</div>
+          <div class="timeline-sub">&pound;80M &mdash; a world record at the time. Nine legendary seasons and 450 goals followed.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2016</div>
+          <div class="timeline-text">Euro 2016 Champion with Portugal</div>
+          <div class="timeline-sub">Beat France 1&ndash;0 in Paris. Ronaldo watched injured but led from the sidelines.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2018</div>
+          <div class="timeline-text">Joined Juventus</div>
+          <div class="timeline-sub">&pound;99.2M at age 33. Proved he was far from finished &mdash; 101 goals in 134 games.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2021</div>
+          <div class="timeline-text">Broke the all-time international goals record</div>
+          <div class="timeline-sub">Surpassed Ali Daei's record of 109 goals for Iran. A moment of pure history.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2023</div>
+          <div class="timeline-text">Al Nassr &mdash; Saudi Arabia</div>
+          <div class="timeline-sub">Signed a record-breaking deal. Still averaging over 1 goal per game at age 38+.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2026</div>
+          <div class="timeline-text">Chasing 1,000 career goals</div>
+          <div class="timeline-sub">965 and counting. Just 35 away from a milestone no footballer has ever reached.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="container">
+    <p>Cristiano Ronaldo &middot; Career Statistics &middot; <span>CR7</span> &middot; Data updated March 2026</p>
+    <p style="margin-top:6px;opacity:.5">Sources: Wikipedia &middot; ESPN &middot; FotMob &middot; TransferMarkt</p>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => io.observe(el));
+
+  const barIo = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.club-bar-fill').forEach(bar => {
+          setTimeout(() => bar.classList.add('animated'), 200);
+        });
+        barIo.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.clubs-list').forEach(el => barIo.observe(el));
+
+  const progressIo = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        setTimeout(() => document.getElementById('progress-fill').classList.add('animated'), 300);
+        progressIo.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const ps = document.querySelector('.progress-section');
+  if (ps) progressIo.observe(ps);
+</script>
+</body>
+</html>
