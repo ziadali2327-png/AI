@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CR7 — Career Stats</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #D4AF37;
+    --gold-light: #F0D060;
+    --red: #CC0000;
+    --dark: #0A0A0A;
+    --darker: #060606;
+    --mid: #161616;
+    --text: #F5F0E8;
+    --muted: #888880;
+    --accent: #E8E0C8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ───── HERO ───── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 6vw 80px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 70% 40%, rgba(204,0,0,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 80% at 30% 60%, rgba(212,175,55,0.08) 0%, transparent 70%),
+      linear-gradient(175deg, #0D0D0D 0%, #060606 100%);
+  }
+
+  .hero-number {
+    position: absolute;
+    right: -2vw;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(200px, 40vw, 560px);
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(212,175,55,0.12);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hero-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    display: block;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 14vw, 200px);
+    line-height: 0.88;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    position: relative;
+    margin-bottom: 32px;
+  }
+
+  h1 span {
+    display: block;
+    color: var(--gold);
+  }
+
+  .hero-desc {
+    max-width: 520px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--muted);
+    position: relative;
+    margin-bottom: 48px;
+  }
+
+  .hero-stats-row {
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .hero-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 6vw, 64px);
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .hero-stat-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    right: 6vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  .scroll-hint::after {
+    content: '';
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, var(--muted), transparent);
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* ───── SECTION WRAPPER ───── */
+  .section {
+    padding: 100px 6vw;
+    border-top: 1px solid rgba(212,175,55,0.08);
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 60px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 80px;
+    height: 1px;
+    background: rgba(212,175,55,0.35);
+  }
+
+  /* ───── BIG MILESTONE ───── */
+  .milestone-band {
+    background: var(--red);
+    padding: 60px 6vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .milestone-band::before {
+    content: '1000';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 220px;
+    color: rgba(255,255,255,0.06);
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  .milestone-text h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 6vw, 80px);
+    line-height: 1;
+    color: #fff;
+  }
+
+  .milestone-text p {
+    margin-top: 8px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    max-width: 400px;
+  }
+
+  .milestone-progress {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    min-width: 260px;
+  }
+
+  .progress-nums {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  .progress-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    color: #fff;
+    line-height: 1;
+  }
+
+  .progress-of {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .progress-bar-wrap {
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: #fff;
+    border-radius: 3px;
+    width: 96.5%;
+    animation: fillBar 1.8s cubic-bezier(0.25,1,0.5,1) forwards;
+  }
+
+  @keyframes fillBar { from { width: 0; } }
+
+  .progress-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+  }
+
+  /* ───── CLUBS GRID ───── */
+  .clubs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1px;
+    background: rgba(212,175,55,0.08);
+    border: 1px solid rgba(212,175,55,0.08);
+  }
+
+  .club-card {
+    background: var(--mid);
+    padding: 36px 32px;
+    transition: background 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .club-card:hover { background: #1C1C1C; }
+
+  .club-era {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+
+  .club-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--text);
+    letter-spacing: 0.04em;
+    margin-bottom: 24px;
+  }
+
+  .club-goals {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .club-games {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .club-ratio {
+    position: absolute;
+    bottom: 28px;
+    right: 28px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    color: rgba(212,175,55,0.4);
+    letter-spacing: 0.1em;
+  }
+
+  /* ───── RECORDS ───── */
+  .records-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .record-row {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    align-items: center;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .record-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--gold);
+    line-height: 1;
+    text-align: right;
+  }
+
+  .record-desc {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .record-desc small {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  .record-badge {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(212,175,55,0.1);
+    border: 1px solid rgba(212,175,55,0.25);
+    padding: 5px 12px;
+    white-space: nowrap;
+  }
+
+  /* ───── AWARDS ───── */
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  .award-card {
+    border: 1px solid rgba(212,175,55,0.15);
+    padding: 28px 24px;
+    position: relative;
+  }
+
+  .award-count {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .award-name {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ───── TIMELINE ───── */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+    border-left: 1px solid rgba(212,175,55,0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding: 28px 0 28px 36px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -37px;
+    top: 38px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--dark);
+  }
+
+  .tl-year {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+
+  .tl-event {
+    font-size: 16px;
+    color: var(--text);
+    margin-bottom: 4px;
+    font-weight: 400;
+  }
+
+  .tl-detail {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ───── PORTUGAL STATS ───── */
+  .portugal-band {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(204,0,0,0.25);
+    padding: 48px 6vw;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 40px;
+  }
+
+  .pt-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    color: var(--red);
+    line-height: 1;
+  }
+
+  .pt-stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-top: 4px;
+  }
+
+  /* ───── FOOTER ───── */
+  footer {
+    padding: 48px 6vw;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  footer p { font-size: 12px; color: var(--muted); }
+
+  /* ───── ANIMATIONS ───── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* stagger children */
+  .fade-up:nth-child(2) { transition-delay: 0.1s; }
+  .fade-up:nth-child(3) { transition-delay: 0.2s; }
+  .fade-up:nth-child(4) { transition-delay: 0.3s; }
+  .fade-up:nth-child(5) { transition-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-number">7</div>
+
+  <p class="hero-tag">The greatest ever · Born Feb 5, 1985</p>
+  <h1>Cristiano<span>Ronaldo</span></h1>
+  <p class="hero-desc">
+    Two decades. Five clubs. Six leagues. One mission: to be the greatest goal-scorer in the history of football — and he's nearly done it.
+  </p>
+
+  <div class="hero-stats-row">
+    <div class="hero-stat">
+      <span class="hero-stat-num">965</span>
+      <span class="hero-stat-label">Career Goals</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">226</span>
+      <span class="hero-stat-label">International Caps</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">5</span>
+      <span class="hero-stat-label">Ballon d'Or</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">38</span>
+      <span class="hero-stat-label">Career Trophies</span>
+    </div>
+  </div>
+
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- ─── 1000 MILESTONE ─── -->
+<div class="milestone-band">
+  <div class="milestone-text">
+    <h2>Chasing<br>1,000 Goals</h2>
+    <p>No player in competitive football history has officially scored 1,000 goals. Ronaldo is 35 away — and still going at 41.</p>
+  </div>
+  <div class="milestone-progress">
+    <div class="progress-nums">
+      <span class="progress-big">965</span>
+      <span class="progress-of">&nbsp;/ 1,000</span>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <span class="progress-label">96.5% of the milestone</span>
+  </div>
+</div>
+
+<!-- ─── CLUBS ─── -->
+<section class="section">
+  <p class="section-label">Goals by Club</p>
+  <div class="clubs-grid">
+    <div class="club-card fade-up">
+      <p class="club-era">2002 – 2003</p>
+      <p class="club-name">Sporting CP</p>
+      <p class="club-goals">5</p>
+      <p class="club-games">25 appearances</p>
+      <p class="club-ratio">0.20 G/G</p>
+    </div>
+    <div class="club-card fade-up">
+      <p class="club-era">2003 – 2009</p>
+      <p class="club-name">Manchester United</p>
+      <p class="club-goals">118</p>
+      <p class="club-games">292 appearances</p>
+      <p class="club-ratio">0.40 G/G</p>
+    </div>
+    <div class="club-card fade-up" style="border-left: 3px solid var(--gold);">
+      <p class="club-era">2009 – 2018</p>
+      <p class="club-name">Real Madrid</p>
+      <p class="club-goals">450</p>
+      <p class="club-games">438 appearances</p>
+      <p class="club-ratio">1.03 G/G</p>
+    </div>
+    <div class="club-card fade-up">
+      <p class="club-era">2018 – 2021</p>
+      <p class="club-name">Juventus</p>
+      <p class="club-goals">101</p>
+      <p class="club-games">134 appearances</p>
+      <p class="club-ratio">0.75 G/G</p>
+    </div>
+    <div class="club-card fade-up">
+      <p class="club-era">2021 – 2022</p>
+      <p class="club-name">Man Utd (return)</p>
+      <p class="club-goals">27</p>
+      <p class="club-games">54 appearances</p>
+      <p class="club-ratio">0.50 G/G</p>
+    </div>
+    <div class="club-card fade-up">
+      <p class="club-era">2023 – Present</p>
+      <p class="club-name">Al Nassr</p>
+      <p class="club-goals">107+</p>
+      <p class="club-games">100+ appearances</p>
+      <p class="club-ratio">~1.0 G/G</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PORTUGAL ─── -->
+<section class="section" style="padding-top:0;">
+  <p class="section-label">Portugal National Team</p>
+  <div class="portugal-band">
+    <div>
+      <p class="pt-stat-num">143</p>
+      <p class="pt-stat-label">International Goals<br>(World Record)</p>
+    </div>
+    <div>
+      <p class="pt-stat-num">226</p>
+      <p class="pt-stat-label">International Caps<br>(World Record)</p>
+    </div>
+    <div>
+      <p class="pt-stat-num">41</p>
+      <p class="pt-stat-label">World Cup<br>Qualifying Goals</p>
+    </div>
+    <div>
+      <p class="pt-stat-num">14</p>
+      <p class="pt-stat-label">European<br>Championship Goals</p>
+    </div>
+    <div>
+      <p class="pt-stat-num">2</p>
+      <p class="pt-stat-label">UEFA Nations<br>League Titles</p>
+    </div>
+    <div>
+      <p class="pt-stat-num">6</p>
+      <p class="pt-stat-label">Euro Championships<br>Played</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── RECORDS ─── -->
+<section class="section">
+  <p class="section-label">Records Held</p>
+  <div class="records-list">
+    <div class="record-row fade-up">
+      <p class="record-num">140</p>
+      <div class="record-desc">Champions League Goals <small>Most in history — across all clubs combined</small></div>
+      <span class="record-badge">World Record</span>
+    </div>
+    <div class="record-row fade-up">
+      <p class="record-num">17</p>
+      <div class="record-desc">Goals in a single Champions League season <small>2013–14 with Real Madrid</small></div>
+      <span class="record-badge">World Record</span>
+    </div>
+    <div class="record-row fade-up">
+      <p class="record-num">143</p>
+      <div class="record-desc">International goals for a men's national team <small>Portugal — 226 caps</small></div>
+      <span class="record-badge">World Record</span>
+    </div>
+    <div class="record-row fade-up">
+      <p class="record-num">14</p>
+      <div class="record-desc">UEFA European Championship goals <small>Across 6 tournaments (2004–2024)</small></div>
+      <span class="record-badge">World Record</span>
+    </div>
+    <div class="record-row fade-up">
+      <p class="record-num">7</p>
+      <div class="record-desc">FIFA Club World Cup goals <small>Most in the history of the competition</small></div>
+      <span class="record-badge">World Record</span>
+    </div>
+    <div class="record-row fade-up">
+      <p class="record-num">450</p>
+      <div class="record-desc">Goals for Real Madrid <small>All-time top scorer — 438 appearances</small></div>
+      <span class="record-badge">Club Record</span>
+    </div>
+    <div class="record-row fade-up">
+      <p class="record-num">1,300+</p>
+      <div class="record-desc">Professional career appearances <small>One of only three players to achieve this</small></div>
+      <span class="record-badge">Elite Group</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── AWARDS ─── -->
+<section class="section">
+  <p class="section-label">Individual Honours</p>
+  <div class="awards-grid">
+    <div class="award-card fade-up">
+      <p class="award-count">5</p>
+      <p class="award-name">Ballon d'Or</p>
+    </div>
+    <div class="award-card fade-up">
+      <p class="award-count">5</p>
+      <p class="award-name">UEFA Champions League</p>
+    </div>
+    <div class="award-card fade-up">
+      <p class="award-count">4</p>
+      <p class="award-name">UEFA Best Player in Europe</p>
+    </div>
+    <div class="award-card fade-up">
+      <p class="award-count">3</p>
+      <p class="award-name">Premier League Titles</p>
+    </div>
+    <div class="award-card fade-up">
+      <p class="award-count">2</p>
+      <p class="award-name">La Liga Titles</p>
+    </div>
+    <div class="award-card fade-up">
+      <p class="award-count">2</p>
+      <p class="award-name">Nations League Titles</p>
+    </div>
+    <div class="award-card fade-up">
+      <p class="award-count">1</p>
+      <p class="award-name">EURO 2016 Winner</p>
+    </div>
+    <div class="award-card fade-up">
+      <p class="award-count">38</p>
+      <p class="award-name">Total Career Trophies</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TIMELINE ─── -->
+<section class="section">
+  <p class="section-label">Career Milestones</p>
+  <div class="timeline">
+    <div class="timeline-item">
+      <p class="tl-year">2003</p>
+      <p class="tl-event">Joins Manchester United aged 18</p>
+      <p class="tl-detail">Sir Alex Ferguson signs him for £12.24m from Sporting CP</p>
+    </div>
+    <div class="timeline-item">
+      <p class="tl-year">2008</p>
+      <p class="tl-event">First Ballon d'Or & Champions League title</p>
+      <p class="tl-detail">Wins PFA Player of the Year, FWA Footballer of the Year, and Champions League with Man Utd</p>
+    </div>
+    <div class="timeline-item">
+      <p class="tl-year">2009</p>
+      <p class="tl-event">World record transfer to Real Madrid — €94 million</p>
+      <p class="tl-detail">Begins the most prolific chapter of his career</p>
+    </div>
+    <div class="timeline-item">
+      <p class="tl-year">2011–2014</p>
+      <p class="tl-event">Back-to-back Ballon d'Or wins (2013, 2014)</p>
+      <p class="tl-detail">Sets Champions League season record: 17 goals in 2013–14</p>
+    </div>
+    <div class="timeline-item">
+      <p class="tl-year">2016</p>
+      <p class="tl-event">EURO 2016 winner with Portugal</p>
+      <p class="tl-detail">Wins Portugal's first-ever major international tournament</p>
+    </div>
+    <div class="timeline-item">
+      <p class="tl-year">2021</p>
+      <p class="tl-event">Becomes all-time men's international top scorer</p>
+      <p class="tl-detail">Surpasses Ali Daei's record of 109 international goals</p>
+    </div>
+    <div class="timeline-item">
+      <p class="tl-year">2023</p>
+      <p class="tl-event">Joins Al Nassr — highest football salary ever</p>
+      <p class="tl-detail">€200m/year total package; scores 500th career league goal soon after</p>
+    </div>
+    <div class="timeline-item">
+      <p class="tl-year">2025</p>
+      <p class="tl-event">Second Nations League title & 965 career goals</p>
+      <p class="tl-detail">Helps Portugal beat Spain in the Nations League final; scores 900th, then chases 1,000</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CURRENT SEASON ─── -->
+<section class="section">
+  <p class="section-label">2025/26 Season at Al Nassr</p>
+  <div class="clubs-grid" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));">
+    <div class="club-card" style="text-align:center">
+      <p class="club-goals" style="font-size:56px">21</p>
+      <p class="club-era" style="text-align:center;margin-top:4px">Goals (Saudi Pro League)</p>
+    </div>
+    <div class="club-card" style="text-align:center">
+      <p class="club-goals" style="font-size:56px">2</p>
+      <p class="club-era" style="text-align:center;margin-top:4px">Assists</p>
+    </div>
+    <div class="club-card" style="text-align:center">
+      <p class="club-goals" style="font-size:56px">22</p>
+      <p class="club-era" style="text-align:center;margin-top:4px">Appearances</p>
+    </div>
+    <div class="club-card" style="text-align:center">
+      <p class="club-goals" style="font-size:56px">7.91</p>
+      <p class="club-era" style="text-align:center;margin-top:4px">Avg Rating (FotMob)</p>
+    </div>
+    <div class="club-card" style="text-align:center">
+      <p class="club-goals" style="font-size:56px">0.98</p>
+      <p class="club-era" style="text-align:center;margin-top:4px">Goals per 90 min</p>
+    </div>
+    <div class="club-card" style="text-align:center; border-left: 3px solid var(--red);">
+      <p class="club-goals" style="font-size:56px">41</p>
+      <p class="club-era" style="text-align:center;margin-top:4px">Years old — still scoring</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Data sourced from Wikipedia, FotMob, FootyStats & ESPN · March 2026</p>
+  <p style="color: var(--gold); font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.1em;">CR7</p>
+</footer>
+
+<script>
+  // Scroll-triggered fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Counter animation for hero stats
+  function animateCount(el, target, duration = 1800, decimals = 0) {
+    const start = performance.now();
+    const update = (now) => {
+      const t = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - t, 3);
+      const val = Math.floor(ease * target);
+      el.textContent = decimals ? val.toLocaleString() : val.toLocaleString();
+      if (t < 1) requestAnimationFrame(update);
+      else el.textContent = target.toLocaleString();
+    };
+    requestAnimationFrame(update);
+  }
+
+  window.addEventListener('load', () => {
+    const nums = document.querySelectorAll('.hero-stat-num');
+    const targets = [965, 226, 5, 38];
+    nums.forEach((el, i) => animateCount(el, targets[i]));
+  });
+</script>
+</body>
+</html>
